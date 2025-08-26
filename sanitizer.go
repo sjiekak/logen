@@ -11,6 +11,8 @@ const (
 	regexpUUID = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
 )
 
+type Filter func(string) string
+
 type Sanitizer struct {
 	reUUID       *regexp.Regexp
 	reNumbers    *regexp.Regexp
@@ -36,7 +38,7 @@ func NewSanitizer() (*Sanitizer, error) {
 }
 
 func (st *Sanitizer) Sanitized(s string) string {
-	return st.removeGibberish(st.reNumbers.ReplaceAllString(st.reUUID.ReplaceAllString(s, ""), ""))
+	return st.removeGibberish(st.reNumbers.ReplaceAllString(st.reUUID.ReplaceAllString(BracketFilter(s), ""), ""))
 }
 
 func (st *Sanitizer) removeGibberish(s string) string {
