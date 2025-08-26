@@ -1,4 +1,4 @@
-module github.com/sjiekak/logmatch
+module github.com/sjiekak/logen
 
 go 1.24.6
 
