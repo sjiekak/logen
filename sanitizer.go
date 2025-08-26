@@ -1,10 +1,14 @@
-package main
+package logen
 
 import (
 	"regexp"
 	"strings"
 
 	"github.com/saferwall/saferwall/pkg/gib"
+)
+
+const (
+	regexpUUID = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
 )
 
 type Sanitizer struct {
@@ -22,7 +26,8 @@ func NewSanitizer() (*Sanitizer, error) {
 	}
 
 	return &Sanitizer{
-		reUUID:       regexp.MustCompile("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"),
+		// TODO: rely on uuid.Validate
+		reUUID:       regexp.MustCompile(regexpUUID),
 		reNumbers:    regexp.MustCompile("([0-9]|-)+"),
 		reSeparators: regexp.MustCompile(`\s|\[|\]|/`),
 		isGibberish:  isGibberish,
