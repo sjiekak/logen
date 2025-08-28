@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/saferwall/saferwall/pkg/gib"
+	"github.com/sjiekak/gib"
 )
 
 const (
@@ -21,8 +21,7 @@ type Sanitizer struct {
 }
 
 func NewSanitizer() (*Sanitizer, error) {
-	// https://github.com/saferwall/saferwall/blob/93bb571f245a2b461366e6e01a520298d5a36109/pkg/gib/gib.go#L196
-	isGibberish, err := gib.NewScorer(nil)
+	isGibberish, err := gib.NewDefaultScorer()
 	if err != nil {
 		return nil, err
 	}
